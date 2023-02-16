@@ -1,4 +1,4 @@
-package demo.app;
+package app;
 
 import java.io.IOException;
 
@@ -7,9 +7,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import demo.view.Controller;
+import view.Controller;
 
-public class Demo extends Application {
+public class App extends Application {
 
 	Stage mainStage;
 	
@@ -18,7 +18,7 @@ public class Demo extends Application {
 		mainStage = stage;
 		mainStage.setTitle("Tastee sandwich");
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("/demo/view/demo.fxml"));
+		loader.setLocation(getClass().getResource("/view/demo.fxml"));
 		AnchorPane pane = (AnchorPane)loader.load();
 		
 		Controller controller = loader.getController();
