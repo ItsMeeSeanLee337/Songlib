@@ -6,28 +6,32 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import view.Controller;
+import view.SonglibController;
 
 public class SonglibApp extends Application {
 
 	Stage mainStage;
 	
-	public void start(Stage stage) 
-		throws Exception {
+	public void start(Stage stage) throws IOException {
 		mainStage = stage;
-		mainStage.setTitle("Tastee sandwich");
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("/view/demo.fxml"));
-		AnchorPane pane = (AnchorPane)loader.load();
-		
-		Controller controller = loader.getController();
+		mainStage.setTitle("Song Library");
+	
+		// Load the FXML file into a VBox
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/SonglibView.fxml"));
+		VBox root = loader.load();
+	
+		// Set the main stage for the controller
+		SonglibController controller = loader.getController();
 		controller.setMainStage(mainStage);
-		
-		Scene scene = new Scene(pane, 400, 300);
+	
+		// Show the scene
+		Scene scene = new Scene(root, 700, 400);
 		mainStage.setScene(scene);
-		mainStage.show();		
+		mainStage.show();
 	}
+	
 	
 
 	
