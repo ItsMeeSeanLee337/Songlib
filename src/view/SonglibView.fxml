@@ -45,10 +45,10 @@
             <Button fx:id="AddSongButton" layoutX="463.0" layoutY="242.0" mnemonicParsing="false" onAction="#AddSongClicked" text="Add Song" />
             <Button fx:id="DeleteSongButton" layoutX="456.0" layoutY="288.0" mnemonicParsing="false" onAction="#DeleteSongClicked" text="Delete Song" />
             <Button fx:id="EditSongButton" layoutX="464.0" layoutY="336.0" mnemonicParsing="false" onAction="#EditSongClicked" text="Edit Song" />
-            <ListView fx:id="ListOfSongs" layoutX="29.0" layoutY="63.0" prefHeight="273.0" prefWidth="338.0" />
+            <ListView fx:id="ListOfSongs" layoutX="29.0" layoutY="63.0" onMouseClicked="#SongSelected" prefHeight="273.0" prefWidth="338.0" />
             <TextField fx:id="SongNameTextf" layoutX="422.0" layoutY="38.0" promptText="Song name" />
-            <TextField fx:id="AlbumTextf" layoutX="422.0" layoutY="89.0" promptText="Album" />
-            <TextField fx:id="ArtistTextf" layoutX="422.0" layoutY="140.0" promptText="Artist" />
+            <TextField fx:id="AlbumTextf" layoutX="422.0" layoutY="134.0" promptText="Album" />
+            <TextField fx:id="ArtistTextf" layoutX="422.0" layoutY="88.0" promptText="Artist" />
             <TextField fx:id="YearTextf" layoutX="422.0" layoutY="187.0" promptText="Year" />
          </children>
       </AnchorPane>

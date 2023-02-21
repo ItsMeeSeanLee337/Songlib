@@ -1,3 +1,4 @@
+// Sean Lee & Carlos Aguilar
 package app;
 
 import java.io.IOException;
@@ -10,7 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import view.SonglibController;
 
-public class SonglibApp extends Application {
+public class Songlib extends Application {
 
 	Stage mainStage;
 	

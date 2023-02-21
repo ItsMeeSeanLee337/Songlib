@@ -10,6 +10,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class SonglibController {
@@ -52,7 +53,7 @@ public class SonglibController {
         String album = AlbumTextf.getText().trim();
         String year = YearTextf.getText().trim();
         //combines each category int one string newSong
-        String newSong = name + " - " + artist + " (" + album + ", " + year + ")";
+        String newSong = name + " | " + artist + " | " + album + " | " + year + " | ";
 
         //creates a new alert, sets the title and text, and then stores the resulting button press in confirmation result
         Alert confirmation = new Alert(AlertType.CONFIRMATION);
@@ -65,6 +66,11 @@ public class SonglibController {
             ListOfSongs.getItems().add(newSong);
         }
 
+        // Clear the text fields
+        SongNameTextf.clear();
+        ArtistTextf.clear();
+        AlbumTextf.clear();
+        YearTextf.clear();
     }
 
     @FXML
@@ -87,6 +93,11 @@ public class SonglibController {
             }
         }
 
+        // Clear the text fields
+        SongNameTextf.clear();
+        ArtistTextf.clear();
+        AlbumTextf.clear();
+        YearTextf.clear();
     }
 
 
@@ -98,7 +109,7 @@ public class SonglibController {
             return;
         }
         String currentSong = ListOfSongs.getSelectionModel().getSelectedItem();
-        String[] songParts = currentSong.split(" - | \\(|\\)|, ");
+        String[] songParts = currentSong.split(" | ");
         String name = songParts[0];
         String artist = songParts[1];
         String album = songParts[2];
@@ -110,6 +121,23 @@ public class SonglibController {
         YearTextf.setText(year);
         // remove the selected song from the list
         ListOfSongs.getItems().remove(selectedIndex);
+
+        // Clear the text fields
+        SongNameTextf.clear();
+        ArtistTextf.clear();
+        AlbumTextf.clear();
+        YearTextf.clear();
     }
 
+    @FXML
+    void SongSelected(MouseEvent event) {
+        String selectedItem = ListOfSongs.getSelectionModel().getSelectedItem();
+        if (selectedItem != null) {
+            String[] songInfo = selectedItem.split("\\s*\\|\\s*");
+            SongNameTextf.setText(songInfo[0]);
+            ArtistTextf.setText(songInfo[1]);
+            AlbumTextf.setText(songInfo[2]);
+            YearTextf.setText(songInfo[3]);
+        }
+    }
 }
