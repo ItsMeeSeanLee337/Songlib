@@ -1,3 +1,4 @@
+// Sean Lee & Carlos Aguilar
 package view;
 
 import java.util.Optional;
@@ -59,16 +60,23 @@ public class SonglibController {
             return;
         }
 
-        // Concatenate Song information into one string
+        // Check for duplicates
         String newSong = name + " | " + artist;
+        for (String song : ListOfSongs.getItems()) {
+            if (song.startsWith(newSong)) {
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Song already exists in the list.");
+                alert.showAndWait();
+                return;
+            }
+        }
+
         String album = AlbumTextf.getText().trim();
-        if (!album.isEmpty()) {
-            newSong += " | " + album;
-        }
+        newSong += " | " + album;
         String year = YearTextf.getText().trim();
-        if (!year.isEmpty()) {
-            newSong += " | " + year;
-        }
+        newSong += " | " + year;
         newSong += " | ";
 
         //creates a new alert, sets the title and text, and then stores the resulting button press in confirmation result
@@ -161,6 +169,18 @@ public class SonglibController {
                     alert.setContentText("Please enter values for Name and Artist.");
                     alert.showAndWait();
                     return;
+                }
+                // Check for duplicates
+                String newSong = name + " | " + artist;
+                for (String song : ListOfSongs.getItems()) {
+                    if (song.startsWith(newSong)) {
+                        Alert alert = new Alert(AlertType.ERROR);
+                        alert.setTitle("Error");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Song already exists in the list.");
+                        alert.showAndWait();
+                        return;
+                    }
                 }
                 String album = AlbumTextf.getText().trim();
                 String year = YearTextf.getText().trim();
