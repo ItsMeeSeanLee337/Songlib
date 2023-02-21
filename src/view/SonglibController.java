@@ -66,6 +66,9 @@ public class SonglibController {
             ListOfSongs.getItems().add(newSong);
         }
 
+        // Sort the list of songs by alphabetical order
+        ListOfSongs.getItems().sort(String.CASE_INSENSITIVE_ORDER);
+
         // Clear the text fields
         SongNameTextf.clear();
         ArtistTextf.clear();
@@ -93,6 +96,9 @@ public class SonglibController {
             }
         }
 
+        // Sort the list of songs by alphabetical order
+        ListOfSongs.getItems().sort(String.CASE_INSENSITIVE_ORDER);
+
         // Clear the text fields
         SongNameTextf.clear();
         ArtistTextf.clear();
@@ -108,25 +114,35 @@ public class SonglibController {
             // no song selected, do nothing
             return;
         }
-        String currentSong = ListOfSongs.getSelectionModel().getSelectedItem();
-        String[] songParts = currentSong.split(" | ");
-        String name = songParts[0];
-        String artist = songParts[1];
-        String album = songParts[2];
-        String year = songParts[3];
-        // set the text fields to the current song's information
-        SongNameTextf.setText(name);
-        ArtistTextf.setText(artist);
-        AlbumTextf.setText(album);
-        YearTextf.setText(year);
-        // remove the selected song from the list
-        ListOfSongs.getItems().remove(selectedIndex);
+        //creates a new alert, sets the title and text, and then stores the resulting button press in confirmation result
+        Alert confirmation = new Alert(AlertType.CONFIRMATION);
+        confirmation.setTitle("Edit");
+        confirmation.setContentText("Are you sure you want to edit this song?");
+        Optional<ButtonType> confirmationresult = confirmation.showAndWait();
 
-        // Clear the text fields
-        SongNameTextf.clear();
-        ArtistTextf.clear();
-        AlbumTextf.clear();
-        YearTextf.clear();
+        //if the confirmation result is OK, delete
+        if(confirmationresult.get() == ButtonType.OK){
+            if (selectedIndex >= 0) {
+                //edits the selected song from the index
+                String name = SongNameTextf.getText().trim();
+                String artist = ArtistTextf.getText().trim();
+                String album = AlbumTextf.getText().trim();
+                String year = YearTextf.getText().trim();
+                // create the new song string with updated information
+                String updatedSong = name + " | " + artist + " | " + album + " | " + year + " | ";
+                // set the selected song to the updated song
+                ListOfSongs.getItems().set(selectedIndex, updatedSong);
+
+                // Sort the list of songs by alphabetical order
+                ListOfSongs.getItems().sort(String.CASE_INSENSITIVE_ORDER);
+
+                // Clear the text fields
+                SongNameTextf.clear();
+                ArtistTextf.clear();
+                AlbumTextf.clear();
+                YearTextf.clear();
+            }
+        }
     }
 
     @FXML
