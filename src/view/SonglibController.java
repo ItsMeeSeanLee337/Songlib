@@ -80,6 +80,9 @@ public class SonglibController {
         //if the confirmation result is ok, add
         if (confirmationresult.get() == ButtonType.OK){
             ListOfSongs.getItems().add(newSong);
+
+            // Select the most recently added song
+            ListOfSongs.getSelectionModel().select(newSong);
         }
 
         // Sort the list of songs by alphabetical order
@@ -95,22 +98,31 @@ public class SonglibController {
     @FXML
     void DeleteSongClicked(ActionEvent event) {
 
-        //selected index is the currently selected index
-        int selectedIndex = ListOfSongs.getSelectionModel().getSelectedIndex();
+        // Store the current selected index
+        int currentIndex = ListOfSongs.getSelectionModel().getSelectedIndex();
 
-        //creates a new alert, sets the title and text, and then stores the resulting button press in confirmation result
+        // Create a new alert to confirm the deletion
         Alert confirmation = new Alert(AlertType.CONFIRMATION);
         confirmation.setTitle("Delete");
         confirmation.setContentText("Are you sure you want to delete this song?");
-        Optional<ButtonType> confirmationresult = confirmation.showAndWait();
+        Optional<ButtonType> confirmationResult = confirmation.showAndWait();
 
-        //if the confirmation result is OK, delete
-        if(confirmationresult.get() == ButtonType.OK){
-            if (selectedIndex >= 0) {
-                //removes the selected song from the index
-                ListOfSongs.getItems().remove(selectedIndex);
+        // If the user confirms deletion, proceed with deleting the selected song
+        if (confirmationResult.get() == ButtonType.OK) {
+            // Remove the selected song from the list
+            ListOfSongs.getItems().remove(currentIndex);
+
+            // Select the next song in the list, or the previous song if there is no next song
+            int numSongs = ListOfSongs.getItems().size();
+            if (numSongs > 0) {
+                int nextIndex = Math.min(currentIndex, numSongs - 1);
+                ListOfSongs.getSelectionModel().select(nextIndex);
+            } else {
+                // If there are no songs left in the list, clear the selection
+                ListOfSongs.getSelectionModel().clearSelection();
             }
         }
+
 
         // Sort the list of songs by alphabetical order
         ListOfSongs.getItems().sort(String.CASE_INSENSITIVE_ORDER);
