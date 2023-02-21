@@ -47,13 +47,29 @@ public class SonglibController {
 
     @FXML
     void AddSongClicked(ActionEvent event) {
-        //sets the name of each category in the textbox
+        // Check that Name and Artist are not empty
         String name = SongNameTextf.getText().trim();
         String artist = ArtistTextf.getText().trim();
+        if (name.isEmpty() || artist.isEmpty()) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Name and Artist are mandatory fields.");
+            alert.showAndWait();
+            return;
+        }
+
+        // Concatenate Song information into one string
+        String newSong = name + " | " + artist;
         String album = AlbumTextf.getText().trim();
+        if (!album.isEmpty()) {
+            newSong += " | " + album;
+        }
         String year = YearTextf.getText().trim();
-        //combines each category int one string newSong
-        String newSong = name + " | " + artist + " | " + album + " | " + year + " | ";
+        if (!year.isEmpty()) {
+            newSong += " | " + year;
+        }
+        newSong += " | ";
 
         //creates a new alert, sets the title and text, and then stores the resulting button press in confirmation result
         Alert confirmation = new Alert(AlertType.CONFIRMATION);
@@ -123,9 +139,17 @@ public class SonglibController {
         //if the confirmation result is OK, delete
         if(confirmationresult.get() == ButtonType.OK){
             if (selectedIndex >= 0) {
-                //edits the selected song from the index
+                // check that name and artist fields are not empty
                 String name = SongNameTextf.getText().trim();
                 String artist = ArtistTextf.getText().trim();
+                if (name.isEmpty() || artist.isEmpty()) {
+                    Alert alert = new Alert(AlertType.ERROR);
+                    alert.setTitle("Edit Error");
+                    alert.setHeaderText("Name and Artist fields are mandatory.");
+                    alert.setContentText("Please enter values for Name and Artist.");
+                    alert.showAndWait();
+                    return;
+                }
                 String album = AlbumTextf.getText().trim();
                 String year = YearTextf.getText().trim();
                 // create the new song string with updated information
