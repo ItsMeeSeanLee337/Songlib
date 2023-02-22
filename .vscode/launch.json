@@ -6,9 +6,17 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch Songlib",
+            "request": "launch",
+            "vmArgs": "--module-path \"C:/Program Files/javafx-sdk-19.0.2.1/lib\" --add-modules javafx.controls,javafx.fxml",
+            "mainClass": "app.Songlib",
+            "projectName": "Songlib_13f2507a"
+        },
+        {
+            "type": "java",
             "name": "Launch SonglibApp",
             "request": "launch",
-            "vmArgs": "--module-path \"C:/Users/cagul/Downloads/javafx-sdk-19.0.2.1/lib\" --add-modules javafx.controls,javafx.fxml",
+            "vmArgs": "--module-path \"C:/Program Files/javafx-sdk-19.0.2.1/lib\" --add-modules javafx.controls,javafx.fxml",
             "mainClass": "app.SonglibApp",
             "projectName": "Songlib_13f2507a"
         },
@@ -16,7 +24,7 @@
             "type": "java",
             "name": "Launch App",
             "request": "launch",
-            "vmArgs": "--module-path \"C:/Users/cagul/Downloads/javafx-sdk-19.0.2.1/lib\" --add-modules javafx.controls,javafx.fxml",
+            "vmArgs": "--module-path \"C:/Program Files/javafx-sdk-19.0.2.1/lib\" --add-modules javafx.controls,javafx.fxml",
             "mainClass": "app.App",
             "projectName": "Songlib_13f2507a"
         },
@@ -24,7 +32,6 @@
             "type": "java",
             "name": "Launch Current File",
             "request": "launch",
-            "vmArgs": "--module-path \"C:/Users/cagul/Downloads/javafx-sdk-19.0.2.1/lib\" --add-modules javafx.controls,javafx.fxml",
             "mainClass": "${file}"
         }
     ]
