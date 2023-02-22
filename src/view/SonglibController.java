@@ -1,10 +1,15 @@
 // Sean Lee & Carlos Aguilar
 package view;
 
+import java.io.*;
+import java.net.URL;
 import java.util.Optional;
+import java.util.ResourceBundle;
+import java.util.Scanner;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -14,7 +19,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-public class SonglibController {
+public class SonglibController implements Initializable {
 
     Stage mainStage;
 
@@ -88,13 +93,23 @@ public class SonglibController {
         //if the confirmation result is ok, add
         if (confirmationresult.get() == ButtonType.OK){
             ListOfSongs.getItems().add(newSong);
-
             // Select the most recently added song
             ListOfSongs.getSelectionModel().select(newSong);
         }
 
-        // Sort the list of songs by alphabetical order
+        // Sort the list of songs by alphabetical order and update text file
         ListOfSongs.getItems().sort(String.CASE_INSENSITIVE_ORDER);
+        File SonglistFile = new File("songlist.txt");
+        try {
+            BufferedWriter filewriter = new BufferedWriter(new FileWriter(SonglistFile));
+            for(int count = 0; count < ListOfSongs.getItems().size() ; count++){
+                filewriter.write(ListOfSongs.getItems().get(count)+ "\n");
+            }
+            filewriter.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
         // Clear the text fields
         SongNameTextf.clear();
@@ -132,8 +147,19 @@ public class SonglibController {
         }
 
 
-        // Sort the list of songs by alphabetical order
+        // Sort the list of songs by alphabetical order and update text file
         ListOfSongs.getItems().sort(String.CASE_INSENSITIVE_ORDER);
+        File SonglistFile = new File("songlist.txt");
+        try {
+            BufferedWriter filewriter = new BufferedWriter(new FileWriter(SonglistFile));
+            for(int count = 0; count < ListOfSongs.getItems().size() ; count++){
+                filewriter.write(ListOfSongs.getItems().get(count)+ "\n");
+            }
+            filewriter.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
         // Clear the text fields
         SongNameTextf.clear();
@@ -189,14 +215,26 @@ public class SonglibController {
                 // set the selected song to the updated song
                 ListOfSongs.getItems().set(selectedIndex, updatedSong);
 
-                // Sort the list of songs by alphabetical order
-                ListOfSongs.getItems().sort(String.CASE_INSENSITIVE_ORDER);
+                // Sort the list of songs by alphabetical order and update text file
+               ListOfSongs.getItems().sort(String.CASE_INSENSITIVE_ORDER);
+                File SonglistFile = new File("songlist.txt");
+                try {
+                 BufferedWriter filewriter = new BufferedWriter(new FileWriter(SonglistFile));
+                    for(int count = 0; count < ListOfSongs.getItems().size() ; count++){
+                        filewriter.write(ListOfSongs.getItems().get(count)+ "\n");
+                    }
+                    filewriter.close();
+                } catch (IOException e) {
+                   // TODO Auto-generated catch block
+                  e.printStackTrace();
+                }
 
                 // Clear the text fields
                 SongNameTextf.clear();
                 ArtistTextf.clear();
                 AlbumTextf.clear();
                 YearTextf.clear();
+
             }
         }
     }
@@ -210,6 +248,29 @@ public class SonglibController {
             ArtistTextf.setText(songInfo[1]);
             AlbumTextf.setText(songInfo[2]);
             YearTextf.setText(songInfo[3]);
+        }
+    }
+
+    @Override
+    public void initialize(URL arg0, ResourceBundle arg1) {
+        //Create a new file songlist.txt for reading/writing
+        File SonglistFile = new File("songlist.txt");
+        try {
+            SonglistFile.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //create a writer for the file 
+        try {
+            Scanner SongReader = new Scanner(SonglistFile);
+            while(SongReader.hasNext()){
+                //sets the name of each category in the textbox
+                String newSong = SongReader.nextLine();
+                ListOfSongs.getItems().add(newSong);
+            }
+            SongReader.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
     }
 }

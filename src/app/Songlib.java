@@ -1,6 +1,8 @@
 // Sean Lee & Carlos Aguilar
 package app;
+import view.*;
 
+import java.io.*;
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -35,6 +37,7 @@ public class Songlib extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
+
 }
 
 
